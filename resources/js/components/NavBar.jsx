@@ -18,7 +18,7 @@ const Navbar = ({currentSlug, tenantKey}) => {
                     {/* <a href="/" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
                     <a href="/" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">About</a>
                     <a href="/" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Contact</a> */}
-                    <AvatarMenu currentSlug={currentSlug} tenantKey={tenantKey} setLoginFormOpen={setLoginModalOpen} />
+                    <AvatarMenu currentSlug={currentSlug} tenantKey={tenantKey} setLoginFormOpen={setLoginModalOpen} handleClose={handleClose} />
                 </div>
                 </div>
             </div>

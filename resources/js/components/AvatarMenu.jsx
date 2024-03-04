@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import API from '../utils/API';
 
-const AvatarMenu = ({ currentSlug, tenantKey, setLoginFormOpen }) => {
+const AvatarMenu = ({ currentSlug, tenantKey, setLoginFormOpen, handleClose }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [copiedApiKey, setCopiedApiKey] = useState(false);
   const toggleDropdown = () => {
