@@ -34,7 +34,7 @@ export default function App() {
     return (
         <>
             {slug == "" ? <div className='min-h-screen bg-gray-900 flex justify-center items-center'>
-                <h3 className='mb-4 text-white text-4xl font-bold opacity-80 '>Not Found</h3>
+                <h3 className='mb-4 text-white text-4xl font-bold opacity-80'>Not Found</h3>
             </div> : loading ? <Loader/> :
                 <div className='min-h-screen relative bg-gray-900'>
                     <Navbar currentSlug={slug} tenantKey={tenant?.api_key} />

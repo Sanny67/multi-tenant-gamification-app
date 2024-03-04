@@ -4,7 +4,6 @@ import API from '../utils/API';
 
 const LoginModal = ({ isOpen, onClose }) => {
   const [formData, setFormData] = useState({name: "", password: ""});
-  const [token, setToken] = useState({name: "", password: ""});
 
     const handleClose = () => {
         onClose();

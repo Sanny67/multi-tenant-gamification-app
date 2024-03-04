@@ -28,6 +28,7 @@ const AvatarMenu = ({ currentSlug, tenantKey, setLoginFormOpen, handleClose }) =
       if(response.data.status === "success"){
           localStorage.removeItem('token');
           localStorage.removeItem('tenant-slug');
+          window.location.reload();
       } else {
           toast.error("Could not log you in.");
       }

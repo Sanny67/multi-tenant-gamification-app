@@ -36,6 +36,7 @@ const Leaderboard = ({slug}) => {
     return (
         <>
             <div className="container m-auto p-10 relative">
+                <h1 className='mb-10 text-white text-4xl font-bold text-center'>Leaderboard</h1>
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
