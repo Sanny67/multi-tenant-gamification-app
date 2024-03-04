@@ -77,7 +77,7 @@ class UserController extends Controller
                 'pronoun' => $request->get('pronoun'),
                 'insta_handle' => @$request->get('insta_handle') ?? "",
                 'image' => $imagePath,
-                'xp_points' => rand(0, 80),
+                'xp_points' => $request->get('xp_points', 0),
             ];
 
             // Create user
@@ -139,7 +139,7 @@ class UserController extends Controller
                 'pronoun' => $request->get('pronoun'),
                 'insta_handle' => $request->get('insta_handle', ""),
                 'image' => $imagePath,
-                'xp_points' => $request->get('xp_points', rand(0, 80))
+                'xp_points' => $request->get('xp_points')
             ]);
     
             $response = [
