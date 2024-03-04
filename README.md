@@ -3,10 +3,15 @@
 
 Effortlessly award experience points within your platform using our API. Specify users and tenants with ease using user_id and tenant_key parameters, enabling personalized gamification experiences.
 
-## Features
+## Project Features
 
-- Only logged in tenants get access to API Key - hence tenants who have api key can make calls to register or award xp.
-- APIs created for User Registration, Award XP to User
+- Kindly run php artisan migrate --seed to get dummy data for testing
+- APIs created for User Registration, and Award XP to User
+- Exclusive access to API Key is granted only to logged-in tenants, ensuring secure communication and control. Tenants with API Key privileges can initiate registration and XP awarding, enabling seamless interaction and customization within their designated ecosystem.
+
+## API Documentation Link
+
+https://github.com/Sanny67/multi-tenant-gamification-app
 
 ## Future Improvements
 
