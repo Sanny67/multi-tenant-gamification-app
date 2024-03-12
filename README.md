@@ -22,7 +22,8 @@ https://github.com/Sanny67/multi-tenant-gamification-app
 - We could implement real-time updates for leaderboards using WebSocket or server-sent events.
 - Support for additional gamification features such as badges, achievements, or levels could be added.
 - User/tenant profile update option can be added.
-- We could use redux saga if more features are incorporated in the app. I have used localStorage only as it is very small app.
+- We could use redux saga if more features are incorporated in the app. I have used localStorage only as it is a very small app.
 - We have used prop drilling technique for tenantKey in the app. Using Redux saga could solve this problem.
 - I have made an API for awarding XPs to users for a particular tenant. In this I need more clarity on what kind of functionality is required and how the external system shall interact with the API. For this project purpose, I have added two input parameters: 'user_id' and 'tenant_key'.
 - We could implement caching mechanisms to improve performance, especially for leaderboard data.
+- To make it scaleable upto millions of users we can use services like Kubernetes or go for horizontal scaling and imlplement load balancers. In production I have not worked on the same but I can study and implement.
