@@ -9,7 +9,6 @@ export const AuthProvider = ({ children }) => {
   const [authTenant, setAuthTenant] = useState({});
 
   const login = async(params, cb) => {
-    console.log("login", params)
     try{
       const response = await API.post('/tenant/login', params);
       if (response.status === 200) {

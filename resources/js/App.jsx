@@ -8,6 +8,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from './components/Loader';
 import { AuthProvider } from './context/AuthContext';
+import HomePage from './components/HomePage';
 
 
 export default function App() {
@@ -34,9 +35,7 @@ export default function App() {
 
     return (
         <AuthProvider>
-            {slug == "" ? <div className='min-h-screen bg-gray-900 flex justify-center items-center'>
-                <h3 className='mb-4 text-white text-4xl font-bold opacity-80'>Not Found</h3>
-            </div> : loading ? <Loader/> :
+            {slug == "" ? <HomePage/> : loading ? <Loader/> :
                 <div className='min-h-screen relative bg-gray-900'>
                     <Navbar currentSlug={slug} tenantKey={tenant?.api_key} />
                     {tenant ? <Leaderboard slug={slug}/> : <h3 className="opacity-50 text-white text-center my-20">Tenant Not found</h3>}

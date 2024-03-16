@@ -13,6 +13,12 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class TenantController extends Controller
 {
+    public function __construct()
+    {
+        // Apply JWT middleware to all methods except login and logout
+        $this->middleware('jwt.auth', ['except' => ['login', 'logout', 'index']]);
+    }
+
     /**
      * Login the tenant
      *
@@ -62,9 +68,24 @@ class TenantController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($slug)
+    public function index()
     {
-        //
+        try {
+            $tenants = Tenant::all();
+            $tenantResources = TenantResource::collection($tenants);
+
+            $response = [
+                'status' => 'success',
+                'message' => 'Tenants fetched successfully',
+                'data' => $tenantResources
+            ];
+        } catch (Exception $e) {
+            $response = [
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ];
+        }
+        return response()->json($response, Response::HTTP_OK);
     }
 
     /**

@@ -8,8 +8,11 @@ const API = axios.create({
 });
 
 API.interceptors.request.use((request) => {
+  const authRoutes = ["logout"];
+  const urlParts = request.url.split("/");
+  const route = urlParts[urlParts.length - 1];
 
-  if (request.url.endsWith("logout")){
+  if (authRoutes.includes(route)){
     request.headers["authorization"] = `Bearer ${localStorage.getItem('token')}`;
   }
   request.headers["Content-Type"] = request.headers['Content-Type'] || "application/json";
