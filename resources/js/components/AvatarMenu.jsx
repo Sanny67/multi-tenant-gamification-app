@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
-import API from '../utils/API';
+import React, { useEffect, useState } from 'react';
+import { useAuth } from '../context/AuthContext';
 
-const AvatarMenu = ({ currentSlug, tenantKey, setLoginFormOpen, handleClose }) => {
-  const [isOpen, setIsOpen] = useState(false);
+const AvatarMenu = ({ currentSlug, tenantKey, setLoginFormOpen }) => {
+  const { authTenant, isLoggedIn, logout } = useAuth();
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [copiedApiKey, setCopiedApiKey] = useState(false);
   const toggleDropdown = () => {
-    setIsOpen(!isOpen);
+    setIsMenuOpen(!isMenuOpen);
   };
 
   const copyApiKey = (e) => {
@@ -21,23 +23,9 @@ const AvatarMenu = ({ currentSlug, tenantKey, setLoginFormOpen, handleClose }) =
     }, 1500);
   };
 
-  const logout = async(e) => {
-    try {
-      e.preventDefault();
-      const response = await API.post('/tenant/logout');
-      if(response.data.status === "success"){
-          localStorage.removeItem('token');
-          localStorage.removeItem('tenant-slug');
-          window.location.reload();
-      } else {
-          toast.error("Could not log you in.");
-      }
-      handleClose();
-    } catch (error) {
-        console.error('Logout failed:', error);
-        throw error;
-    }
-  }
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [isLoggedIn]);
 
   return (
     <div className="relative">
@@ -55,20 +43,28 @@ const AvatarMenu = ({ currentSlug, tenantKey, setLoginFormOpen, handleClose }) =
             alt="user photo"
         />
       </button>
-      {isOpen && (
+      {isMenuOpen && (
         <div
           id="dropdown"
           className="z-10 absolute right-0 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
         >
           <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
             <li>
-              {localStorage.getItem("token") && localStorage.getItem('tenant-slug') == currentSlug && <a
+              {isLoggedIn && authTenant?.slug == currentSlug && <a
                 href="#"
                 onClick={copyApiKey}
                 className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
               >{copiedApiKey ? <span style={{color:"#639b64"}}>Copied!</span> : <span>Copy API Key</span>}</a>}
               
-              {(!localStorage.getItem("token")) && <a
+              {isLoggedIn ? <a
+                href="#"
+                onClick={(e)=> {
+                  e.preventDefault();
+                  logout();
+                }}
+                className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+              >Logout</a> : 
+              <a
                 href="#"
                 onClick={(e)=> {
                   e.preventDefault();
@@ -76,12 +72,6 @@ const AvatarMenu = ({ currentSlug, tenantKey, setLoginFormOpen, handleClose }) =
                 }}
                 className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
               >Sign in?</a>}
-              
-              {(localStorage.getItem("token")) && <a
-                href="#"
-                onClick={logout}
-                className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-              >Logout</a>}
               
             </li>
           </ul>

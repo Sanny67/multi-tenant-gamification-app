@@ -7,7 +7,7 @@ import Navbar from './components/NavBar';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from './components/Loader';
-import { AuthProvider } from './AuthContext';
+import { AuthProvider } from './context/AuthContext';
 
 
 export default function App() {

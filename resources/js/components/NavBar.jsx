@@ -11,11 +11,15 @@ const Navbar = ({currentSlug, tenantKey}) => {
             <nav className="bg-gray-900 py-4">
                 <div className="max-w-7xl mx-auto px-4">
                     <div className="flex justify-between">
-                    <div className="flex items-center">
-                        <a href="/" className="text-white text-xl font-bold">Multi-tenant Gamification App</a>
-                    </div>
-                    <div className="flex items-center">
-                        <AvatarMenu currentSlug={currentSlug} tenantKey={tenantKey} setLoginFormOpen={setLoginModalOpen} handleClose={handleClose} />
+                        <div className="flex items-center">
+                            <a href="/" className="text-white text-xl font-bold">Multi-tenant Gamification App</a>
+                        </div>
+                        <div className="flex items-center">
+                            <AvatarMenu
+                                currentSlug={currentSlug}
+                                tenantKey={tenantKey}
+                                setLoginFormOpen={setLoginModalOpen}
+                            />
                     </div>
                     </div>
                 </div>
