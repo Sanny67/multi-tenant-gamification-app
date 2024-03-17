@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AwardXPRequest;
 use App\Http\Requests\UserRequest;
+use App\Http\Resources\TenantResource;
 use App\Http\Resources\UserResource;
 use App\Models\Tenant;
 use App\Models\User;
@@ -35,7 +36,7 @@ class UserController extends Controller
             $response = [
                 'status' => 'success',
                 'message' => 'Data fetched successfully',
-                'data' => $usersResponse
+                'data' => ['tenant' => new TenantResource($tenant), 'users' => $usersResponse]
             ];
 
         } catch (Exception $e) {

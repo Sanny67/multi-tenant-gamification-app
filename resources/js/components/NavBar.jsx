@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import AvatarMenu from './AvatarMenu';
 import LoginModal from './LoginModal';
 
-const Navbar = ({currentSlug, tenantKey}) => {
+const Navbar = () => {
     const[loginModalOpen, setLoginModalOpen] = useState(false);
     const handleClose = () => setLoginModalOpen(false);
 
@@ -15,11 +15,7 @@ const Navbar = ({currentSlug, tenantKey}) => {
                             <a href="/" className="text-white text-xl font-bold">Multi-tenant Gamification App</a>
                         </div>
                         <div className="flex items-center">
-                            <AvatarMenu
-                                currentSlug={currentSlug}
-                                tenantKey={tenantKey}
-                                setLoginFormOpen={setLoginModalOpen}
-                            />
+                            <AvatarMenu setLoginFormOpen={setLoginModalOpen} />
                     </div>
                     </div>
                 </div>

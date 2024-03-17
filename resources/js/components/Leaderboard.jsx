@@ -1,37 +1,10 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import API from '../utils/API';
 import UserData from './UserData';
+import { useTenantBoard } from '../context/TenantContext';
 
-const Leaderboard = ({slug}) => {
-    const [userList, setUserList] = useState([]);
-    const [loading, setLoading] = useState(true);
-
-    const fetchUsers = async() => {
-        try {
-            const response = await API.get('/users/'+slug);
-            setUserList(response.data);
-            setLoading(false);
-        } catch (error) {
-            console.error('Login failed:', error);
-            throw error;
-        }
-    };
-
-    useEffect(() => {
-        fetchUsers();
-    }, []);
-
-    const users = useMemo(() => userList?.data ? userList?.data?.map(
-        ({ id, name, image, xp_points, created_at, updated_at }, key) => ({
-            "_id": id,
-            "rank": key + 1,
-            "name": name,
-            "image": image,
-            "xp_points": xp_points,
-            "created_at": created_at,
-            "updated_at": updated_at
-        })
-    ) : [], [userList]);
+const Leaderboard = () => {
+    const { users } = useTenantBoard();
 
     return (
         <>

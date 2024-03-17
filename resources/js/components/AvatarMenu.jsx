@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { useTenantBoard } from '../context/TenantContext';
 
-const AvatarMenu = ({ currentSlug, tenantKey, setLoginFormOpen }) => {
+const AvatarMenu = ({ setLoginFormOpen }) => {
+  
+  const tenantKey = authTenant?.api_key;
+  const { currentSlug } = useTenantBoard();
   const { authTenant, isLoggedIn, logout } = useAuth();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);

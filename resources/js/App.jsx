@@ -2,43 +2,28 @@ import './App.css';
 import API from './utils/API';
 import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Leaderboard from './components/Leaderboard';
 import Navbar from './components/NavBar';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from './components/Loader';
+import { TenantProvider } from './context/TenantContext';
 import { AuthProvider } from './context/AuthContext';
 import HomePage from './components/HomePage';
 
-
 export default function App() {
-    const slug = window.location.href.split('/').pop();
-    const [tenant, setTenant] = useState({});
-    const [loading, setLoading] = useState(true);
-
-    const getTenant = async() => {
-        try {
-            const response = await API.get('/tenant/'+slug);
-            setTenant(response.data.data);
-            setLoading(false);
-        } catch (error) {
-            console.error('Failed to fetch tenant:', error);
-            throw error;
-        }
-    };
-
-    useEffect(() => {
-        if(slug !== ""){
-            getTenant();
-        }
-    }, []);
-
     return (
-        <AuthProvider>
-            {slug == "" ? <HomePage/> : loading ? <Loader/> :
-                <div className='min-h-screen relative bg-gray-900'>
-                    <Navbar currentSlug={slug} tenantKey={tenant?.api_key} />
-                    {tenant ? <Leaderboard slug={slug}/> : <h3 className="opacity-50 text-white text-center my-20">Tenant Not found</h3>}
+        <div className='min-h-screen relative bg-gray-900'>
+            <TenantProvider>
+            <AuthProvider>
+                    <Navbar />
+                    <Router>
+                        <Routes>
+                            <Route exact path="/" element={<HomePage/>} />
+                            <Route path="/:slug" element={<Leaderboard/>}/> 
+                        </Routes>
+                    </Router>
                     <ToastContainer
                         position="top-right"
                         autoClose={5000}
@@ -51,9 +36,9 @@ export default function App() {
                         pauseOnHover
                         theme="dark"
                     />
-                </div>
-            }
-        </AuthProvider>
+            </AuthProvider>
+                </TenantProvider>
+        </div>
     );
 };
 
