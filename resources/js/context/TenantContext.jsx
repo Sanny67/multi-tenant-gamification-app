@@ -5,27 +5,27 @@ import { toast } from 'react-toastify';
 const TenantContext = createContext();
 
 export const TenantProvider = ({ children }) => {
-    const defaultSlug = window.location.href.split('/').pop();
-    const [currentSlug, setCurrentSlug] = useState(defaultSlug);
+
+    const [currentSlug, setCurrentSlug] = useState("");
     const [currentTenant, setCurrentTenant] = useState({});
     const [userList, setUserList] = useState([]);
-    
-    useEffect(() => {
-        const fetchTenantUsers = async () => {
-            try {
-                const { data } = await API.get('/users/'+currentSlug);
-                if(data.status === 'success'){
-                    setCurrentTenant(data.data.tenant);
-                    setUserList([...data.data.users]);
-                }
-            } catch (error) {
-                toast.error("Failed to fetch tenant users");
-                console.error('Failed to fetch tenant users:', error);
-            }
-        };
 
-        fetchTenantUsers();
+    useEffect(() => {
+        if(currentSlug !== "") fetchTenantUsers();
     }, [currentSlug]);
+
+    const fetchTenantUsers = async () => {
+        try {
+            const { data } = await API.get('/users/'+currentSlug);
+            if(data.status === 'success'){
+                setCurrentTenant(data.data.tenant);
+                setUserList([...data.data.users]);
+            }
+        } catch (error) {
+            toast.error("Failed to fetch tenant users");
+            console.error('Failed to fetch tenant users:', error);
+        }
+    };
 
     const users = useMemo(() => {
         return userList ? userList?.map(
@@ -42,7 +42,7 @@ export const TenantProvider = ({ children }) => {
     }, [userList]);
 
     return (
-        <TenantContext.Provider value={{ currentTenant, currentSlug, users }}>
+        <TenantContext.Provider value={{ currentTenant, currentSlug, setCurrentSlug, users }}>
             {children}
         </TenantContext.Provider>
     );

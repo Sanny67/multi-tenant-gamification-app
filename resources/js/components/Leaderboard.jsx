@@ -2,9 +2,16 @@ import React, { useEffect, useState, useMemo } from 'react';
 import API from '../utils/API';
 import UserData from './UserData';
 import { useTenantBoard } from '../context/TenantContext';
+import { useParams } from 'react-router-dom';
 
 const Leaderboard = () => {
-    const { users } = useTenantBoard();
+    
+    const { slug } = useParams();
+    const { users, setCurrentSlug } = useTenantBoard();
+
+    useEffect(() => {
+        setCurrentSlug(slug);
+    }, [slug]);
 
     return (
         <>

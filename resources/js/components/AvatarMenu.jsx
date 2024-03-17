@@ -4,9 +4,9 @@ import { useTenantBoard } from '../context/TenantContext';
 
 const AvatarMenu = ({ setLoginFormOpen }) => {
   
-  const tenantKey = authTenant?.api_key;
   const { currentSlug } = useTenantBoard();
   const { authTenant, isLoggedIn, logout } = useAuth();
+  const tenantKey = authTenant?.api_key || "";
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [copiedApiKey, setCopiedApiKey] = useState(false);
