@@ -35,8 +35,8 @@ class UserFactory extends Factory
         $instaHandle = $this->generateInstaHandle($name);
 
         $image = match ($gender) {
-            'male' => '/images/man.png',
-            'female' => '/images/woman.png',
+            'male' => 'defaultMan',
+            'female' => 'defaultWoman',
         };
 
         return [
